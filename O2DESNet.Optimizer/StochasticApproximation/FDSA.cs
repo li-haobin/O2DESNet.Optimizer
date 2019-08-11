@@ -11,7 +11,8 @@ namespace O2DESNet.Optimizer.StochasticApproximation
         /// Estimate multi-gradient for multi-objective evaluator
         /// by finite-difference stochastic approximation
         /// </summary>
-        public static Matrix<double> EstimateGradient_FDSA(this IMultiObjectiveEvaluator evaluator, IList<double> decisions, double perturbation)
+        public static Matrix<double> EstimateGradient_FDSA(this MultiObjective.IEvaluator evaluator, 
+            IList<double> decisions, double perturbation)
         {
             var g = new List<DenseVector>();
             var x = (DenseVector)decisions;
@@ -34,7 +35,8 @@ namespace O2DESNet.Optimizer.StochasticApproximation
         /// Estimate gradient for single-objective evaluator,
         /// by finite-difference stochastic approximation
         /// </summary>
-        public static IList<double> EstimateGradient_FDSA(this ISingleObjectiveEvaluator evaluator, IList<double> decisions, double perturbation)
+        public static IList<double> EstimateGradient_FDSA(this SingleObjective.IEvaluator evaluator, 
+            IList<double> decisions, double perturbation)
         {
             var g = new List<double>();
             var x = (DenseVector)decisions;
