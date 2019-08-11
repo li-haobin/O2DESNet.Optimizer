@@ -9,7 +9,7 @@ namespace O2DESNet.Optimizer.Benchmarks
     {
         public ZDT3(int numberDecisions) : base(numberDecisions)
         {
-            Name = string.Format("ZDT3/{0}d", NumberDecisions);
+            Tag = "ZDT3";
         }
 
         protected override double Get_h(IList<double> x)

@@ -2,30 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MathNet.Numerics.LinearAlgebra;
 
 namespace O2DESNet.Optimizer.Benchmarks
 {
-    public abstract class ZDTx : IMultiObjectiveEvaluator, IHasMultiGradient
+    public abstract class DTLZx : IMultiObjectiveEvaluator
     {
         public string Tag { get; protected set; }
-        public string Name { get { return string.Format("{0}/{1}d", Tag, NDecisions); } }
-        public int NObjectives { get; } = 2;
+        public string Name { get { return string.Format("{0}/{1}d/{2}o", Tag, NDecisions, NObjectives); } }
+        public int NObjectives { get; }
         public int NDecisions { get; }
         public IReadOnlyList<double> LowerBounds { get; }
         public IReadOnlyList<double> UpperBounds { get; }
 
-        public ZDTx(int numberDecisions)
+
+        public DTLZx(int numberDecisions, int numberObjectives)
         {
-            if (numberDecisions < 2) throw new Exception("The minimum number of decisions for ZDTx is 2.");
+            if (numberDecisions < 2) throw new Exception("The minimum number of decisions for DTLZx is 2.");
+            if (numberObjectives < 2) throw new Exception("The minimum number of objectives for DTLZx is 2.");
             NDecisions = numberDecisions;
+            NObjectives = numberObjectives;
             LowerBounds = Enumerable.Repeat(0d, NDecisions).ToList().AsReadOnly();
             UpperBounds = Enumerable.Repeat(1d, NDecisions).ToList().AsReadOnly();
         }
 
         public abstract IList<double> Evaluate(IList<double> decisions);
-
-        public abstract Matrix<double> GetGradient(IList<double> decisions);
 
         public override string ToString() { return Name; }
     }

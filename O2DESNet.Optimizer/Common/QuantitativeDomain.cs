@@ -4,7 +4,7 @@ using System.Text;
 
 namespace O2DESNet.Optimizer
 {
-    public static class StaticTools
+    public static class QuantitativeDomain
     {
         public static bool IsFeasible(this IQuantitativeDomain domain, IList<double> decisions)
         {
