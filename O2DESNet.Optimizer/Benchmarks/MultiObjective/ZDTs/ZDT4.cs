@@ -3,9 +3,8 @@ using MathNet.Numerics.LinearAlgebra.Double;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace O2DESNet.Optimizer.Benchmarks
+namespace O2DESNet.Optimizer.Benchmarks.MultiObjective
 {
     public class ZDT4 : ZDT1
     {

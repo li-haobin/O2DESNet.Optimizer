@@ -1,7 +1,5 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace O2DESNet.Optimizer
 {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using MathNet.Numerics.LinearAlgebra;
 
-namespace O2DESNet.Optimizer.Benchmarks
+namespace O2DESNet.Optimizer.Benchmarks.MultiObjective
 {
     public abstract class ZDTx : IMultiObjectiveEvaluator, IHasMultiGradient
     {

@@ -1,9 +1,8 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace O2DESNet.Optimizer.Benchmarks
+namespace O2DESNet.Optimizer.Benchmarks.MultiObjective
 {
     public class ZDT3 : ZDT1
     {
