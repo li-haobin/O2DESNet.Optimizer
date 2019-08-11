@@ -26,7 +26,7 @@ namespace O2DESNet.Optimizer.Benchmarks
         protected virtual double Get_f(IList<double> x)
         {
             double f = 1.0;
-            for (int i = 1; i < NDecisions; i++) f += 9 * x[i] / (NDecisions - 1);
+            for (int i = 1; i < NumberDecisions; i++) f += 9 * x[i] / (NumberDecisions - 1);
             return f;
         }
         protected virtual double Get_h(IList<double> x) { return 1 - Math.Sqrt(Get_g1(x) / Get_f(x)); }
@@ -39,7 +39,7 @@ namespace O2DESNet.Optimizer.Benchmarks
         }
         protected virtual Vector<double> Get_dg1(IList<double> x)
         {
-            var d = new double[NDecisions];
+            var d = new double[NumberDecisions];
             d[0] = 1;
             return (DenseVector)d;
         }
@@ -49,7 +49,7 @@ namespace O2DESNet.Optimizer.Benchmarks
         }
         protected virtual Vector<double> Get_df(IList<double> x)
         {
-            var d = x.Select(v => 9.0 / (NDecisions - 1)).ToArray();
+            var d = x.Select(v => 9.0 / (NumberDecisions - 1)).ToArray();
             d[0] = 0;
             return (DenseVector)d;
         }

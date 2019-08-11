@@ -9,18 +9,18 @@ namespace O2DESNet.Optimizer.Benchmarks
     public abstract class ZDTx : IMultiObjectiveEvaluator, IHasMultiGradient
     {
         public string Tag { get; protected set; }
-        public string Name { get { return string.Format("{0}/{1}d", Tag, NDecisions); } }
-        public int NObjectives { get; } = 2;
-        public int NDecisions { get; }
+        public string Name { get { return string.Format("{0}/{1}d", Tag, NumberDecisions); } }
+        public int NumberObjectives { get; } = 2;
+        public int NumberDecisions { get; }
         public IReadOnlyList<double> LowerBounds { get; }
         public IReadOnlyList<double> UpperBounds { get; }
 
         public ZDTx(int numberDecisions)
         {
             if (numberDecisions < 2) throw new Exception("The minimum number of decisions for ZDTx is 2.");
-            NDecisions = numberDecisions;
-            LowerBounds = Enumerable.Repeat(0d, NDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(1d, NDecisions).ToList().AsReadOnly();
+            NumberDecisions = numberDecisions;
+            LowerBounds = Enumerable.Repeat(0d, NumberDecisions).ToList().AsReadOnly();
+            UpperBounds = Enumerable.Repeat(1d, NumberDecisions).ToList().AsReadOnly();
         }
 
         public abstract IList<double> Evaluate(IList<double> decisions);
