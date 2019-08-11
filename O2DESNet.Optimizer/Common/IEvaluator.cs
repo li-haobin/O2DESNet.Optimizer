@@ -3,7 +3,6 @@
     public interface IEvaluator
     {
         string Name { get; }
-        int NumberObjectives { get; }
         int NumberDecisions { get; }
     }
 }

@@ -5,13 +5,12 @@ namespace O2DESNet.Optimizer
     /// <summary>
     /// Single-objective deterministic evaluator
     /// </summary>
-    public interface ISingleObjectiveEvaluator : IEvaluator, IQuantitativeDomain
+    public interface ISingleObjectiveEvaluator : ISingleObjectiveEvaluator<IList<double>>, IQuantitativeDomain
     {
-        double Evaluate(IList<double> decisions);
     }
 
     public interface ISingleObjectiveEvaluator<T> : IEvaluator
     {
-        double Evaluate(T design);
+        double Evaluate(T decisions);
     }
 }

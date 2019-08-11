@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using O2DESNet.Optimizer.Benchmarks.MultiObjective;
 
 namespace UnitTests.O2DESNet.Optimizer
 {
