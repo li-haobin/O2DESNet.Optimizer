@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "O2DESNet.Optimizer", "O2DESNet.Optimizer.csproj", "{B793502D-4B2A-4A66-BADF-9E38B43072EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "O2DESNet.Optimizer", "O2DESNet.Optimizer.csproj", "{B793502D-4B2A-4A66-BADF-9E38B43072EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.O2DESNet.Optimizer", "..\UnitTests.O2DESNet.Optimizer\UnitTests.O2DESNet.Optimizer.csproj", "{B4EBB1A8-9A08-408F-AEE5-2A60F370BA90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B793502D-4B2A-4A66-BADF-9E38B43072EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B793502D-4B2A-4A66-BADF-9E38B43072EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B793502D-4B2A-4A66-BADF-9E38B43072EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4EBB1A8-9A08-408F-AEE5-2A60F370BA90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4EBB1A8-9A08-408F-AEE5-2A60F370BA90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4EBB1A8-9A08-408F-AEE5-2A60F370BA90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4EBB1A8-9A08-408F-AEE5-2A60F370BA90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,6 +16,7 @@ namespace O2DESNet.Optimizer.Benchmarks
 
         public ZDTx(int numberDecisions)
         {
+            if (numberDecisions < 2) throw new Exception("The minimum number of decisions for ZDTx is 2.");
             NumberDecisions = numberDecisions;
             LowerBounds = Enumerable.Repeat(0d, NumberDecisions).ToList().AsReadOnly();
             UpperBounds = Enumerable.Repeat(1d, NumberDecisions).ToList().AsReadOnly();

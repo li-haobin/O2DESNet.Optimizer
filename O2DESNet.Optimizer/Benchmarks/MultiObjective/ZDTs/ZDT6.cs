@@ -11,7 +11,7 @@ namespace O2DESNet.Optimizer.Benchmarks
     {
         public ZDT6(int numberDecisions) : base(numberDecisions)
         {
-            Name = string.Format("ZDT6-{0}d", NumberDecisions);
+            Name = string.Format("ZDT6/{0}d", NumberDecisions);
         }
 
         protected override double Get_g1(IList<double> x)
