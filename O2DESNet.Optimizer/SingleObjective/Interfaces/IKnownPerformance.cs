@@ -8,8 +8,8 @@ namespace O2DESNet.Optimizer.SingleObjective
 {
     public interface IKnownPerformance<T> : IStochasticEvaluator<T>
     {
-        double PopulationMean(T design);
-        double PopulationStandardDeviation(T design);
+        IReadOnlyDictionary<T, double> TrueMeans { get; }
+        IReadOnlyDictionary<T, double> TrueStandardDeviations { get; }
     }
 
     public interface IKnownPerformance : IKnownPerformance<Vector>

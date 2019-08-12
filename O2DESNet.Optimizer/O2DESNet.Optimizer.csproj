@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathNet.Numerics" Version="4.8.1" />
+    <PackageReference Include="O2DESNet" Version="3.4.9" />
   </ItemGroup>
 
 </Project>
