@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,14 +14,14 @@ namespace O2DESNet.Optimizer.MultiObjective
             Tag = "DTLZ2";
         }
 
-        public override IList<double> Evaluate(IList<double> decisions)
+        public override Vector Evaluate(Vector decisions)
         {
             if (!this.IsFeasible(decisions))
-                return Enumerable.Repeat(double.PositiveInfinity, NumberObjectives).ToList();
+                return Enumerable.Repeat(double.PositiveInfinity, NumberObjectives).ToDenseVector();
 
             var x = decisions.ToArray();
             int k = NumberDecisions - NumberObjectives + 1;
-            double[] f = new double[NumberObjectives];
+            DenseVector f = new double[NumberObjectives];
             double g = 0.0;
             for (int i = NumberDecisions - k; i < NumberDecisions; i++)
                 g += (x[i] - 0.5) * (x[i] - 0.5);

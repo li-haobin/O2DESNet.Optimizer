@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace O2DESNet.Optimizer.SingleObjective
+namespace O2DESNet.Optimizer.MultiObjective
 {
     public interface IKnownPerformance<T> : IStochasticEvaluator<T>
     {
-        double PopulationMean(T design);
-        double PopulationStandardDeviation(T design);
+        Vector PopulationMeans(T design);
+        Vector PopulationStandardDeviations(T design);
     }
 
     public interface IKnownPerformance : IKnownPerformance<Vector>

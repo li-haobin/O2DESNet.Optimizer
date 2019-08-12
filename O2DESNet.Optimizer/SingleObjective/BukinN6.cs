@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,18 +14,18 @@ namespace O2DESNet.Optimizer.SingleObjective
     {
         public string Name { get; }
         public int NumberDecisions { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
         
         public BukinN6()
         {
             NumberDecisions = 2;
             Name = string.Format("BukinN6/{0}d", NumberDecisions);
-            LowerBounds = Enumerable.Repeat(-5d, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(5d, NumberDecisions).ToList().AsReadOnly();
+            LowerBounds = Enumerable.Repeat(-5d, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(5d, NumberDecisions).ToDenseVector();
         }
 
-        public double Evaluate(IList<double> x)
+        public double Evaluate(Vector x)
         {
             return Math.Sqrt(Math.Abs(x[1] - 0.01 * x[0] * x[0])) * 100 + 0.01 * Math.Abs(x[0] + 10);
         }

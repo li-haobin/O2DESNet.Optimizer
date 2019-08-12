@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
+using System.Collections.Generic;
 
 namespace O2DESNet.Optimizer.SingleObjective
 {
     public interface IHasGradient : IEvaluator
     {
-        IList<double> GetGradient(IList<double> decisions);
+        Vector GetGradient(Vector decisions);
     }
 }

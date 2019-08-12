@@ -10,26 +10,26 @@ namespace O2DESNet.Optimizer.SingleObjective
     {
         public string Name { get; }
         public int NumberDecisions { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
 
         public Quadratic(int numberDecisions)
         {
             if (numberDecisions < 1) throw new NotImplementedException();
             NumberDecisions = numberDecisions;
             Name = string.Format("Quadratic/{0}d", NumberDecisions);
-            LowerBounds = Enumerable.Repeat(double.NegativeInfinity, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(double.PositiveInfinity, NumberDecisions).ToList().AsReadOnly();
+            LowerBounds = Enumerable.Repeat(double.NegativeInfinity, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(double.PositiveInfinity, NumberDecisions).ToDenseVector();
         }
 
-        public double Evaluate(IList<double> x)
+        public double Evaluate(Vector x)
         {
             return x.Sum(v => v * v);
         }
 
-        public IList<double> GetGradient(IList<double> x)
+        public Vector GetGradient(Vector x)
         {
-            return x.Select(v => v * 2).ToArray();
+            return x.Select(v => v * 2).ToDenseVector();
         }
     }
 }

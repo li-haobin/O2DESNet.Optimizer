@@ -10,18 +10,18 @@ namespace O2DESNet.Optimizer.SingleObjective
     {
         public string Name { get; }
         public int NumberDecisions { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
 
         public Shubert()
         {
             NumberDecisions = 2;
             Name = "Shubert";
-            LowerBounds = Enumerable.Repeat(-10d, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(10d, NumberDecisions).ToList().AsReadOnly();
+            LowerBounds = Enumerable.Repeat(-10d, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(10d, NumberDecisions).ToDenseVector();
         }
 
-        public double Evaluate(IList<double> x)
+        public double Evaluate(Vector x)
         {
             var indices = Enumerable.Range(0, 5);
             return indices.Sum(i => Math.Cos(x[0] * (i + 1) + i) * i) * indices.Sum(i => Math.Cos(x[1] * (i + 1) + i) * i);

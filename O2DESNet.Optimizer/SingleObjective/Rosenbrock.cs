@@ -10,26 +10,26 @@ namespace O2DESNet.Optimizer.SingleObjective
     {
         public string Name { get; }
         public int NumberDecisions { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
 
         public Rosenbrock(int numberDecisions)
         {
             if (numberDecisions < 1) throw new NotImplementedException();
             NumberDecisions = numberDecisions;
             Name = string.Format("Rosenbrock/{0}d", NumberDecisions);
-            LowerBounds = Enumerable.Repeat(double.NegativeInfinity, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(double.PositiveInfinity, NumberDecisions).ToList().AsReadOnly();
+            LowerBounds = Enumerable.Repeat(double.NegativeInfinity, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(double.PositiveInfinity, NumberDecisions).ToDenseVector();
         }
 
-        public double Evaluate(IList<double> x)
+        public double Evaluate(Vector x)
         {
             double value = 0;
             for (int i = 0; i < x.Count - 1; i++) value += 100 * Math.Pow(x[i + 1] - x[i] * x[i], 2) + Math.Pow(x[i] - 1, 2);
             return value;
         }
 
-        public IList<double> GetGradient(IList<double> x)
+        public Vector GetGradient(Vector x)
         {
             List<double> gradient = new List<double>();
             for (int i = 0; i < x.Count; i++)
@@ -38,7 +38,7 @@ namespace O2DESNet.Optimizer.SingleObjective
                 else if (i < x.Count - 1) gradient.Add(200 * (x[i] - x[i - 1] * x[i - 1]) - 400 * (x[i + 1] - x[i] * x[i]) * x[i] + 2 * x[i] - 2);
                 else gradient.Add(200 * (x[i] - x[i - 1] * x[i - 1]));
             }
-            return gradient.ToArray();
+            return gradient.ToDenseVector();
         }
     }
 }

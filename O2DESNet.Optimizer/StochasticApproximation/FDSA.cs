@@ -2,6 +2,7 @@
 using MathNet.Numerics.LinearAlgebra.Double;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace O2DESNet.Optimizer.StochasticApproximation
 {
@@ -11,8 +12,8 @@ namespace O2DESNet.Optimizer.StochasticApproximation
         /// Estimate multi-gradient for multi-objective evaluator
         /// by finite-difference stochastic approximation
         /// </summary>
-        public static Matrix<double> EstimateGradient_FDSA(this MultiObjective.IEvaluator evaluator, 
-            IList<double> decisions, double perturbation)
+        public static Vector[] EstimateGradient_FDSA(this MultiObjective.IEvaluator evaluator,
+            Vector decisions, double perturbation)
         {
             var g = new List<DenseVector>();
             var x = (DenseVector)decisions;
@@ -28,15 +29,15 @@ namespace O2DESNet.Optimizer.StochasticApproximation
                 else
                     g.Add(((DenseVector)evaluator.Evaluate(x) - (DenseVector)evaluator.Evaluate(x2)) / perturbation);
             }
-            return DenseMatrix.OfColumnVectors(g);
+            return DenseMatrix.OfColumnVectors(g).ToRowArrays().Select(row => row.ToDenseVector()).ToArray();
         }
 
         /// <summary>
         /// Estimate gradient for single-objective evaluator,
         /// by finite-difference stochastic approximation
         /// </summary>
-        public static IList<double> EstimateGradient_FDSA(this SingleObjective.IEvaluator evaluator, 
-            IList<double> decisions, double perturbation)
+        public static Vector EstimateGradient_FDSA(this SingleObjective.IEvaluator evaluator,
+            Vector decisions, double perturbation)
         {
             var g = new List<double>();
             var x = (DenseVector)decisions;
@@ -52,7 +53,7 @@ namespace O2DESNet.Optimizer.StochasticApproximation
                 else
                     g.Add((evaluator.Evaluate(x) - evaluator.Evaluate(x2)) / perturbation);
             }
-            return g;
+            return g.ToDenseVector();
         }
     }
 }

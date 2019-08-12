@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace O2DESNet.Optimizer.MultiObjective
 {
@@ -11,20 +12,20 @@ namespace O2DESNet.Optimizer.MultiObjective
         public string Name { get { return string.Format("{0}/{1}d", Tag, NumberDecisions); } }
         public int NumberObjectives { get; } = 2;
         public int NumberDecisions { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
 
         public ZDTx(int numberDecisions)
         {
             if (numberDecisions < 2) throw new Exception("The minimum number of decisions for ZDTx is 2.");
             NumberDecisions = numberDecisions;
-            LowerBounds = Enumerable.Repeat(0d, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(1d, NumberDecisions).ToList().AsReadOnly();
+            LowerBounds = Enumerable.Repeat(0d, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(1d, NumberDecisions).ToDenseVector();
         }
 
-        public abstract IList<double> Evaluate(IList<double> decisions);
+        public abstract Vector Evaluate(Vector decisions);
 
-        public abstract Matrix<double> GetGradients(IList<double> decisions);
+        public abstract Vector[] GetGradients(Vector decisions);
 
         public override string ToString() { return Name; }
     }

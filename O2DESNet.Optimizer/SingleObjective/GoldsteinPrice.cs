@@ -10,17 +10,17 @@ namespace O2DESNet.Optimizer.SingleObjective
     {
         public string Name { get; }
         public int NumberDecisions { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
-        public IReadOnlyList<IReadOnlyList<double>> Optimum { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
+        public Vector[] Optimum { get; }
 
         public GoldsteinPrice()
         {
             NumberDecisions = 2;
             Name = "GoldsteinPrice";
-            LowerBounds = Enumerable.Repeat(-2d, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(2d, NumberDecisions).ToList().AsReadOnly();
-            Optimum = new List<IReadOnlyList<double>> { new List<double> { 0, -1 }.AsReadOnly() }.AsReadOnly();
+            LowerBounds = Enumerable.Repeat(-2d, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(2d, NumberDecisions).ToDenseVector();
+            Optimum = new Vector[] { (DenseVector)new double[] { 0, -1 } };
         }
         private static double Get_s1(double x1, double x2) { return (x1 + x2 + 1) * (x1 + x2 + 1); }
         private static double Get_s2(double x1, double x2) { return 19 - 14 * x1 + 3 * x1 * x1 - 14 * x2 + 6 * x1 * x2 + 3 * x2 * x2; }
@@ -53,20 +53,20 @@ namespace O2DESNet.Optimizer.SingleObjective
             return Get_s3(x1, x2) * Get_ds4dx2(x1, x2) + Get_ds3dx2(x1, x2) * Get_s4(x1, x2);
         }
 
-        public double Evaluate(IList<double> x)
+        public double Evaluate(Vector x)
         {
             double x1 = x[0], x2 = x[1];
             return Get_t1(x1, x2) * Get_t2(x1, x2);
         }
 
-        public IList<double> GetGradient(IList<double> x)
+        public Vector GetGradient(Vector x)
         {
             double x1 = x[0], x2 = x[1];
             return new double[] 
             {
                 Get_t1(x1, x2) * Get_dt2dx1(x1, x2) + Get_dt1dx1(x1, x2) * Get_t2(x1, x2),
                 Get_t1(x1, x2) * Get_dt2dx2(x1, x2) + Get_dt1dx2(x1, x2) * Get_t2(x1, x2)
-            };
+            }.ToDenseVector();
         }
     }
 }

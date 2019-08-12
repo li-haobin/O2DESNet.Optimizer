@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
+using System.Collections.Generic;
 
 namespace O2DESNet.Optimizer
 {
     public static class QuantitativeDomain
     {
-        public static bool IsFeasible(this IQuantitativeDomain domain, IList<double> decisions)
+        public static bool IsFeasible(this IQuantitativeDomain domain, Vector decisions)
         {
             if (decisions.Count > domain.LowerBounds.Count) return false;
             if (decisions.Count > domain.UpperBounds.Count) return false;

@@ -10,25 +10,25 @@ namespace O2DESNet.Optimizer.SingleObjective
     {
         public string Name { get; }
         public int NumberDecisions { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
-        public IReadOnlyList<IReadOnlyList<double>> Optimum { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
+        public Vector[] Optimum { get; }
 
         public Perm(int numberDecisions)
         {
             if (numberDecisions < 2) throw new NotImplementedException();
             NumberDecisions = numberDecisions;
             Name = string.Format("Perm/{0}d", NumberDecisions);
-            LowerBounds = Enumerable.Repeat(-5d, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(5d, NumberDecisions).ToList().AsReadOnly();
-            Optimum = new List<IReadOnlyList<double>>
+            LowerBounds = Enumerable.Repeat(-5d, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(5d, NumberDecisions).ToDenseVector();
+            Optimum = new Vector[]
             {
-                Enumerable.Range(1, NumberDecisions).Select(i => (double)i).ToList().AsReadOnly()
-            }.AsReadOnly();
+                (DenseVector)Enumerable.Range(1, NumberDecisions).Select(i => (double)i).ToArray()
+            };
         }
 
         private const double Beta = 0.5;
-        public double Evaluate(IList<double> x)
+        public double Evaluate(Vector x)
         {
             return Enumerable.Range(1, NumberDecisions)
                 .Sum(i => Math.Pow(Enumerable.Range(1, NumberDecisions)

@@ -11,8 +11,8 @@ namespace O2DESNet.Optimizer.SingleObjective
         public string Name { get; }
         public int NumberDecisions { get; }
         public int NEXP { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
 
         public PoguSumExp(int numberDecisions)
         {
@@ -20,18 +20,18 @@ namespace O2DESNet.Optimizer.SingleObjective
             NumberDecisions = numberDecisions;
             NEXP = NumberDecisions / 2;
             Name = string.Format("PoguSumExp/{0}d", NumberDecisions);
-            LowerBounds = Enumerable.Repeat(-5d, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(5d, NumberDecisions).ToList().AsReadOnly();
+            LowerBounds = Enumerable.Repeat(-5d, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(5d, NumberDecisions).ToDenseVector();
         }
 
-        public double Evaluate(IList<double> x)
+        public double Evaluate(Vector x)
         {
             double value = 0;
             for (int j = 1; j <= 41; j++) value += Math.Pow(Inner(x, j), 2);
             return value / 41;
         }
 
-        public IList<double> GetGradient(IList<double> x)
+        public Vector GetGradient(Vector x)
         {
             List<double> gradient = new List<double>();
             for (int i = 1; i <= NEXP * 2; i++)
@@ -50,7 +50,7 @@ namespace O2DESNet.Optimizer.SingleObjective
                 gradient.Add(gi / 41);
             }
             if (gradient.Count < NumberDecisions) gradient.Add(0);
-            return gradient.ToArray();
+            return gradient.ToDenseVector();
         }
 
         private double Get_t(int j) { return 0.025 * (j - 1); }

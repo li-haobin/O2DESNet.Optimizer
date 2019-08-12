@@ -6,36 +6,36 @@ using System.Linq;
 
 namespace O2DESNet.Optimizer.MultiObjective
 {
-    public class MultiSphere : IEvaluator, IHasGradients
+    public class MultiSphere : IEvaluator, IHasGradients, IKnownOptimum
     {
         public string Name { get; }
         public int NumberObjectives { get; }
         public int NumberDecisions { get; }
-        public IReadOnlyList<double> LowerBounds { get; }
-        public IReadOnlyList<double> UpperBounds { get; }
+        public Vector LowerBounds { get; }
+        public Vector UpperBounds { get; }
 
-        public IReadOnlyList<IReadOnlyList<double>> Optima { get; }
+        public Vector[] Optimum { get; }
 
-        public MultiSphere(params IList<double>[] optima)
+        public MultiSphere(params Vector[] optimum)
         {
-            NumberDecisions = optima.Min(o => o.Count);
-            NumberObjectives = optima.Length;
-            Name = string.Format("MultiSphere/{0}d/{1}o", NumberDecisions, NumberObjectives); 
-            Optima = optima.Select(o => o.Take(NumberDecisions).ToList().AsReadOnly()).ToList().AsReadOnly();
-            LowerBounds = Enumerable.Repeat(double.NegativeInfinity, NumberDecisions).ToList().AsReadOnly();
-            UpperBounds = Enumerable.Repeat(double.PositiveInfinity, NumberDecisions).ToList().AsReadOnly();
+            NumberDecisions = optimum.Min(o => o.Count);
+            NumberObjectives = optimum.Length;
+            Name = string.Format("MultiSphere/{0}d/{1}o", NumberDecisions, NumberObjectives);
+            Optimum = optimum.Select(o => (DenseVector) o.Take(NumberDecisions).ToArray()).ToArray();
+            LowerBounds = Enumerable.Repeat(double.NegativeInfinity, NumberDecisions).ToDenseVector();
+            UpperBounds = Enumerable.Repeat(double.PositiveInfinity, NumberDecisions).ToDenseVector();
         }
 
-        public IList<double> Evaluate(IList<double> decisions)
+        public Vector Evaluate(Vector decisions)
         {
             return Enumerable.Range(0, NumberObjectives)
                 .Select(o => Enumerable.Range(0, NumberDecisions)
-                .Sum(d => Math.Pow(decisions[d] - Optima[o][d], 2))).ToList();
+                .Sum(d => Math.Pow(decisions[d] - Optimum[o][d], 2))).ToDenseVector();
         }
 
-        public Matrix<double> GetGradients(IList<double> decisions)
+        public Vector[] GetGradients(Vector decisions)
         {
-            return DenseMatrix.OfRowVectors(Optima.Select(o => 2 * ((DenseVector)decisions - (DenseVector)o)));
+            return Optimum.Select(o => (2 * (decisions - o)).ToDenseVector()).ToArray();
         }
     }
 }
