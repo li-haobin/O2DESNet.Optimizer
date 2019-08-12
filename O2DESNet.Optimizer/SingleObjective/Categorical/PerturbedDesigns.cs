@@ -1,12 +1,10 @@
 ﻿using MathNet.Numerics.Distributions;
 using MathNet.Numerics.Statistics;
-using O2DESNet.Optimizer.SingleObjective;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace O2DESNet.Optimizer.SingleObjective
+namespace O2DESNet.Optimizer.SingleObjective.Categorical
 {
     public class PerturbedDesigns : IStochasticEvaluator<int>, ISampleStatistics<int>, IKnownPerformance<int>
     {

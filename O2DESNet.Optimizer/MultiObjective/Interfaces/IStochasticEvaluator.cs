@@ -1,6 +1,4 @@
-﻿using MathNet.Numerics.Distributions;
-
-namespace O2DESNet.Optimizer.MultiObjective
+﻿namespace O2DESNet.Optimizer.MultiObjective
 {
     /// <summary>
     /// Multi-objective stochastic evaluator

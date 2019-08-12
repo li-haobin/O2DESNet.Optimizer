@@ -1,8 +1,5 @@
-﻿using MathNet.Numerics.LinearAlgebra;
-using MathNet.Numerics.LinearAlgebra.Double;
-using System;
+﻿using MathNet.Numerics.LinearAlgebra.Double;
 using System.Collections.Generic;
-using System.Text;
 
 namespace O2DESNet.Optimizer.SingleObjective
 {

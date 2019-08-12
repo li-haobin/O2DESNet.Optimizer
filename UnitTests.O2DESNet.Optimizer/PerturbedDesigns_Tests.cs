@@ -1,8 +1,6 @@
-using MathNet.Numerics.LinearAlgebra.Double;
 using NUnit.Framework;
-using O2DESNet.Optimizer.MultiObjective;
-using O2DESNet.Optimizer.SingleObjective;
-using System.Collections.Generic;
+using O2DESNet.Optimizer.SingleObjective.Categorical;
+using System;
 
 namespace UnitTests.O2DESNet.Optimizer
 {
@@ -20,6 +18,28 @@ namespace UnitTests.O2DESNet.Optimizer
             pd.Evaluate(3);
             pd.Evaluate(1);
             pd.Evaluate(2);
+        }
+
+        [Test]
+        public void Test2()
+        {
+            var sc = new SlippageConfiguration(10, 2);
+            var rs = new Random(0);
+            for(int i = 0; i < 1000; i++)
+            {
+                sc.Evaluate(rs.Next(sc.Size));
+            }
+        }
+
+        [Test]
+        public void Test3()
+        {
+            var mdm = new MonotoneDecreasingMeans(10, 2);
+            var rs = new Random(0);
+            for (int i = 0; i < 1000; i++)
+            {
+                mdm.Evaluate(rs.Next(mdm.Size));
+            }
         }
 
     }
