@@ -10,7 +10,7 @@ namespace O2DESNet.Optimizer.MultiObjective
         IReadOnlyDictionary<T, Vector> SampleStandardDeviations { get; }
     }
 
-    public interface ISampleStatistics : IKnownPerformance<Vector>
+    public interface ISampleStatistics : ISampleStatistics<Vector>
     {
     }
 }
