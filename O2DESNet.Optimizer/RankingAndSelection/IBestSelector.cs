@@ -5,7 +5,7 @@ namespace O2DESNet.Optimizer
 {
     public interface IBestSelector<T>
     {
-        IEvaluator<T> Evaluator { get; }
+        IStochasticEvaluator<T> Evaluator { get; }
         T Select(ICollection<T> candidates);
     }
 }

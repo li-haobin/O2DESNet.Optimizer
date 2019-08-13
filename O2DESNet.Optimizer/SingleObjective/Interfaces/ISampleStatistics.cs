@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MathNet.Numerics.LinearAlgebra.Double;
+using System.Collections.Generic;
 
 namespace O2DESNet.Optimizer.SingleObjective
 {
@@ -9,7 +10,7 @@ namespace O2DESNet.Optimizer.SingleObjective
         IReadOnlyDictionary<T, double> SampleStandardDeviations { get; }
     }
 
-    public interface ISampleStatistics : IKnownPerformance<IList<double>>
+    public interface ISampleStatistics : ISampleStatistics<Vector>
     {
     }
 }
