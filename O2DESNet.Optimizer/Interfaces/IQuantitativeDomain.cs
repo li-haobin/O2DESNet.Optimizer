@@ -6,5 +6,7 @@ namespace O2DESNet.Optimizer
     {
         Vector LowerBounds { get; }
         Vector UpperBounds { get; }
+
+        int NumberDecisions { get; }
     }
 }

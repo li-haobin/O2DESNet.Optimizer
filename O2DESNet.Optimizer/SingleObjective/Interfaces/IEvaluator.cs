@@ -7,7 +7,6 @@ namespace O2DESNet.Optimizer.SingleObjective
     /// </summary>
     public interface IEvaluator : IEvaluator<Vector>, IQuantitativeDomain
     {
-        int NumberDecisions { get; }
     }
 
     public interface IEvaluator<T> : INamed
